@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kỷ Niệm Lớp 5/7</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Pattaya&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.3);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --blur-amount: 15px;
+            --primary-blue: #007bff;
+            /* Font chữ chính */
+            --font-main: 'Quicksand', sans-serif;
+            --font-title: 'Pattaya', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font-main);
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- HEADER LIQUID GLASS BO TRÒN --- */
+        header {
+            position: sticky;
+            top: 15px;
+            margin: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 35px;
+            z-index: 1000;
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--blur-amount));
+            -webkit-backdrop-filter: blur(var(--blur-amount));
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .logo:hover { transform: scale(1.1); text-shadow: 0 0 10px rgba(0,123,255,0.3); }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #444;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        /* --- CĂN GIỮA MÀN HÌNH --- */
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Căn giữa theo chiều dọc */
+            padding: 20px;
+            text-align: center;
+        }
+
+        section, .detail-page {
+            display: none;
+            width: 100%;
+            max-width: 800px;
+            animation: zoomIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        section.active, .detail-page.active { display: block; }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* --- CHỮ TO VÀ ĐẸP --- */
+        h1, h2, h3 {
+            font-family: var(--font-title);
+            color: #2c3e50;
+        }
+
+        h1 { font-size: 3.5rem; margin-bottom: 10px; }
+        h2 { font-size: 3rem; margin-bottom: 30px; }
+        h3 { font-size: 4rem; margin-bottom: 20px; color: var(--primary-blue); }
+
+        p {
+            font-size: 1.8rem; /* Chữ lời chúc to ra */
+            line-height: 1.4;
+            color: #444;
+            font-weight: 500;
+        }
+
+        /* --- NÚT CONTENT LIQUID GLASS --- */
+        .content-list { list-style: none; padding: 0; width: 100%; max-width: 450px; margin: 0 auto; }
+        .content-list li {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--blur-amount));
+            -webkit-backdrop-filter: blur(var(--blur-amount));
+            border: 1px solid var(--glass-border);
+            margin: 20px 0;
+            padding: 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: #333;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .content-list li:hover {
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        #surprise-item {
+            background: rgba(255, 234, 167, 0.6);
+            border: 2px dashed #f1c40f;
+            color: #d35400;
+        }
+
+        /* --- NÚT GO BACK IN ĐẬM GÓC TRÁI --- */
+        .back-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            padding: 15px 35px;
+            background: #2d3436;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 900;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 2000;
+            transition: 0.3s;
+        }
+        .back-btn:hover { background: #000; transform: translateY(-3px); }
+
+        /* --- BONG BÓNG --- */
+        .bubbles { position: fixed; bottom: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        .bubble {
+            position: absolute;
+            bottom: -50px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            animation: rise linear infinite;
+        }
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1); opacity: 0.5; }
+            100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
+        }
+
+        video { width: 100%; max-width: 700px; border-radius: 25px; border: 5px solid white; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+    </style>
+</head>
+<body>
+
+    <div class="bubbles" id="bubble-container"></div>
+
+    <header>
+        <div class="logo" onclick="window.location.reload()">LOP 5/7</div>
+        <nav>
+            <a onclick="showSection('home')">Trang chủ</a>
+            <a onclick="showSection('main-content')">Content</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="active">
+            <h1>Kỷ Niệm Lớp 5/7</h1>
+            <p>Sắp ra trường rồi, cùng xem lại những điều tuyệt vời nhất nhé!</p>
+            <p style="font-size: 1.2rem; color: #555; margin-top: 20px;">(NHẤP VÀO CONTENT ĐỂ XEM)</p>
+        </section>
+
+        <section id="main-content">
+            <h2>DANH MỤC</h2>
+            <ul class="content-list">
+                <li onclick="openDetail('detail-1')">1. Lời chúc</li>
+                <li onclick="openDetail('detail-2')">2. Ước mơ</li>
+                <li onclick="openDetail('detail-3')">3. Mong muốn</li>
+                <li id="surprise-item" style="display: none;" onclick="openDetail('detail-4')">✨ 4. Bất ngờ ✨</li>
+            </ul>
+        </section>
+
+        <div id="detail-1" class="detail-page">
+            <h3>Lời chúc</h3>
+            <p>Chúc cả lớp 5/7 chúng mình mãi luôn vui vẻ, học giỏi và dù có đi đâu cũng sẽ luôn nhớ về nhau nhé!</p>
+        </div>
+
+        <div id="detail-2" class="detail-page">
+            <h3>Ước mơ</h3>
+            <p>Mong rằng sau này tất cả tụi mình đều sẽ trở thành những người thành công và thực hiện được ước mơ của riêng mình.</p>
+        </div>
+
+        <div id="detail-3" class="detail-page">
+            <h3>Mong muốn</h3>
+            <p>Mong thầy cô luôn mạnh khỏe và lớp chúng mình sẽ có một buổi liên hoan chia tay thật đáng nhớ!</p>
+        </div>
+
+        <div id="detail-4" class="detail-page">
+            <h3>Quà tặng 5/7</h3>
+            <video id="surprise-video" controls>
+                <source src="video.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <button id="back-btn" class="back-btn" onclick="goBack()">← GO BACK</button>
+    </main>
+
+    <script>
+        // Tạo bong bóng
+        const container = document.getElementById('bubble-container');
+        for (let i = 0; i < 20; i++) {
+            const b = document.createElement('div');
+            b.className = 'bubble';
+            const s = Math.random() * 50 + 10 + 'px';
+            b.style.width = s; b.style.height = s;
+            b.style.left = Math.random() * 100 + 'vw';
+            b.style.animationDuration = Math.random() * 5 + 5 + 's';
+            b.style.animationDelay = Math.random() * 4 + 's';
+            container.appendChild(b);
+        }
+
+        let viewed = new Set();
+        const backBtn = document.getElementById('back-btn');
+
+        function showSection(id) {
+            document.querySelectorAll('section, .detail-page').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            backBtn.style.display = 'none';
+        }
+
+        function openDetail(id) {
+            document.querySelectorAll('section, .detail-page').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            backBtn.style.display = 'block';
+            
+            if (id !== 'detail-4') {
+                viewed.add(id);
+                if (viewed.size === 3) document.getElementById('surprise-item').style.display = 'block';
+            } else {
+                document.getElementById('surprise-video').play();
+            }
+        }
+
+        function goBack() {
+            showSection('main-content');
+            document.getElementById('surprise-video').pause();
+        }
+    </script>
+</body>
+</html>
