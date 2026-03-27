@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kỷ Niệm Lớp 5/7 - Duy, Vi, Diệp, Khôi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Pattaya&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.35);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --blur: 15px;
+            --primary: #007bff;
+            --font-main: 'Quicksand', sans-serif;
+            --font-title: 'Pattaya', sans-serif;
+        }
+
+        body {
+            margin: 0; font-family: var(--font-main);
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            min-height: 100vh; display: flex; flex-direction: column;
+            align-items: center; overflow-x: hidden; user-select: none;
+        }
+
+        header {
+            position: sticky; top: 15px; display: flex; justify-content: space-between;
+            align-items: center; padding: 12px 30px; z-index: 1000;
+            background: var(--glass-bg); backdrop-filter: blur(var(--blur));
+            border: 1px solid var(--glass-border); border-radius: 50px;
+            width: 85%; max-width: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .logo { font-family: var(--font-title); font-size: 1.6rem; color: var(--primary); cursor: pointer; }
+        nav a { margin-left: 15px; text-decoration: none; color: #444; font-weight: 700; cursor: pointer; }
+
+        main { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; width: 100%; }
+
+        section, .detail-page, #game-area, #surprise-selection, #video-page {
+            display: none; width: 100%; text-align: center; animation: zoomIn 0.5s ease;
+        }
+        section.active, .detail-page.active, #game-area.active, #surprise-selection.active, #video-page.active { display: block; }
+
+        /* PHONG CÁCH CHO CÁC TRANG CHI TIẾT 1, 2, 3 */
+        .detail-page {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--glass-bg);
+            padding: 40px;
+            border-radius: 30px;
+            backdrop-filter: blur(var(--blur));
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        .detail-page h3 {
+            font-family: var(--font-title);
+            font-size: 3rem; /* Chữ tiêu đề rất to */
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .detail-page p {
+            font-size: 1.5rem; /* Chữ nội dung to rõ */
+            line-height: 1.6;
+            color: #333;
+            font-weight: 600;
+        }
+
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+        .content-list { list-style: none; padding: 0; max-width: 400px; margin: 0 auto; }
+        .content-list li {
+            background: var(--glass-bg); backdrop-filter: blur(var(--blur));
+            border: 1px solid var(--glass-border); margin: 15px 0; padding: 22px;
+            border-radius: 50px; cursor: pointer; font-weight: 700; font-size: 1.3rem; transition: 0.3s;
+        }
+        .content-list li:hover { transform: translateY(-5px); background: rgba(255,255,255,0.6); }
+
+        #game-area { max-width: 400px; position: relative; }
+        #game-canvas {
+            background: #70c5ce; border: 6px solid white; border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15); cursor: pointer;
+        }
+
+        #game-over {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); border-radius: 20px;
+            display: none; flex-direction: column; justify-content: center; align-items: center;
+            color: white; z-index: 100;
+        }
+
+        .btn {
+            font-family: var(--font-main); padding: 12px 25px; border: none;
+            border-radius: 30px; font-weight: 700; cursor: pointer; margin: 8px; transition: 0.3s;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .btn-blue { background: #007bff; color: white; }
+        .btn-red { background: #ff4757; color: white; }
+        .btn-glass { background: var(--glass-bg); backdrop-filter: blur(5px); border: 1px solid white; color: #333; }
+
+        .video-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 15px; max-width: 500px; margin: 30px auto;
+        }
+        .video-node {
+            background: white; padding: 20px; border-radius: 20px;
+            font-weight: 800; font-size: 1.2rem; cursor: pointer;
+            transition: 0.3s; border: 2px solid transparent;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .video-node:hover { background: #ffeaa7; border-color: #fdcb6e; transform: translateY(-3px); }
+
+        .special-node {
+            background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+            color: white; grid-column: span 3; font-size: 1.4rem;
+            animation: pulse 1.5s infinite; border: 2px solid #fff;
+        }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+
+        video { width: 100%; max-width: 700px; border-radius: 30px; border: 8px solid white; box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
+        .back-btn { position: fixed; bottom: 30px; left: 30px; background: #222; color: white; display: none; z-index: 2000; }
+        #security-alert { position: fixed; top: 20px; background: rgba(255, 71, 87, 0.9); color: white; padding: 15px 25px; border-radius: 30px; font-weight: bold; z-index: 10000; display: none; }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <div id="security-alert">Bí mật của lớp 5/7, đừng soi nhaaa! :P</div>
+
+    <header>
+        <div class="logo" onclick="window.location.reload()">LOP 5/7</div>
+        <nav>
+            <a onclick="showSection('home')">Trang chủ</a>
+            <a onclick="showSection('main-content')">Content</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="active">
+            <h1 style="font-family: var(--font-title); font-size: 3.5rem;">Lớp 5/7 Thân Yêu</h1>
+            <p>Sắp chia tay rồi, lưu giữ kỷ niệm nhé! (Nhấn vô CONTENT để xem)</p>
+        </section>
+
+        <section id="main-content">
+            <h2 style="font-family: var(--font-title); font-size: 2.5rem;">KHÁM PHÁ</h2>
+            <ul class="content-list">
+                <li onclick="openDetail('detail-1')">1. Lời chúc</li>
+                <li onclick="openDetail('detail-2')">2. Ước mơ</li>
+                <li onclick="openDetail('detail-3')">3. Lời tạm biệt</li>
+                <li id="surprise-item" style="display: none; background: #ffeaa7;" onclick="showGame()">✨ 4. CHƠI TRÒ CHƠI ✨</li>
+            </ul>
+        </section>
+
+        <div id="detail-1" class="detail-page">
+            <h3>Lời chúc</h3>
+            <p>Một năm học nữa lại kết thúc, chúc cậu có một mùa hè rực rỡ và những kỷ niệm đẹp bên gia đình, bạn bè. Dù sau này có đi đâu, nhớ mãi những ngày tháng tươi đẹp này nhé!</p>
+        </div>
+
+        <div id="detail-2" class="detail-page">
+            <h3>Ước mơ</h3>
+            <p>Ước mơ của lớp 5/7 chúng mình là tất cả các thành viên đều vượt qua kỳ thi sắp tới xuất sắc. Mong rằng ai cũng sẽ đỗ vào ngôi trường cấp 2 mơ ước. Chúc các bạn luôn tự tin và tỏa sáng! 5/7 mãi đỉnh!</p>
+        </div>
+
+        <div id="detail-3" class="detail-page">
+            <h3>Lời tạm biệt</h3>
+            <p>Tạm biệt lớp 5/7 thân yêu, tạm biệt những giờ ra chơi náo nhiệt. Cảm ơn thầy cô và bạn bè đã đồng hành suốt thời gian qua. Chúc các bạn bay cao, bay xa như những chú chim nhỏ!</p>
+        </div>
+
+        <div id="game-area">
+            <canvas id="game-canvas" width="400" height="600"></canvas>
+            <div id="game-over">
+                <h2 style="font-size: 2.5rem;">THUA RÙI :(</h2>
+                <p id="final-score" style="font-size: 1.5rem; margin: 10px 0;">SCORE: 0</p>
+                <div>
+                    <button class="btn btn-blue" onclick="resetGame()">Chơi lại</button>
+                    <button class="btn btn-red" onclick="goToSurprise()">Đi típ</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="surprise-selection">
+            <h2 style="font-family: var(--font-title); font-size: 2.5rem;">Chọn Bất Ngờ ✨</h2>
+            <div class="video-grid" id="video-grid"></div>
+        </div>
+
+        <div id="video-page">
+            <h3 id="video-title" style="font-family: var(--font-title); font-size: 2rem;">Bất ngờ</h3>
+            <video id="main-video" controls><source src="" type="video/mp4"></video>
+            <br><br>
+            <button class="btn btn-glass" onclick="goToSurprise()">QUAY LẠI CHỌN SỐ KHÁC</button>
+        </div>
+
+        <button id="back-btn" class="btn back-btn" onclick="goBack()">← QUAY LẠI</button>
+    </main>
+
+    <script>
+        // BẢO MẬT
+        function showAlert() {
+            const alertBox = document.getElementById('security-alert');
+            alertBox.style.display = 'block';
+            setTimeout(() => { alertBox.style.display = 'none'; }, 2000);
+        }
+        document.addEventListener('keydown', e => {
+            if (e.keyCode == 123 || (e.ctrlKey && (e.keyCode == 85 || (e.shiftKey && e.keyCode == 73) || e.keyCode == 83))) {
+                showAlert(); e.preventDefault(); return false;
+            }
+        });
+
+        // GAME FLAPPY BIRD - ĐÃ GIẢM TRỌNG LỰC
+        const canvas = document.getElementById('game-canvas');
+        const ctx = canvas.getContext('2d');
+        const birdImg = new Image(); birdImg.src = 'Flappy-Bird-PNG-Free-Image.png';
+        let bird, pipes, score, gameRunning = false, animationId;
+        
+        const gravity = 0.25; // Đã giảm từ 0.35 xuống 0.25 (Rơi chậm hơn)
+        const jump = -5.5;    // Lực nhảy nhẹ nhàng hơn để dễ kiểm soát
+
+        function initGame() {
+            bird = { x: 50, y: 250, w: 45, h: 35, v: 0 };
+            pipes = []; score = 0; gameRunning = false;
+            drawStartScreen();
+        }
+
+        function drawStartScreen() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "white"; ctx.font = "bold 22px Quicksand"; ctx.textAlign = "center";
+            ctx.fillText("Click để bay nhó!", canvas.width/2, canvas.height/2);
+            if(birdImg.complete) ctx.drawImage(birdImg, bird.x, bird.y, bird.w, bird.h);
+        }
+
+        function update() {
+            if (!gameRunning) return;
+            bird.v += gravity; bird.y += bird.v;
+            if (pipes.length === 0 || pipes[pipes.length - 1].x < canvas.width - 220) {
+                const h = Math.random() * (canvas.height - 300) + 50;
+                pipes.push({ x: canvas.width, top: h, scored: false });
+            }
+            pipes.forEach(p => {
+                p.x -= 2.5; // Giảm tốc độ ống di chuyển một chút cho dễ
+                if (!p.scored && p.x + 65 < bird.x) { score++; p.scored = true; }
+                if (bird.x + bird.w > p.x && bird.x < p.x + 65 && (bird.y < p.top || bird.y + bird.h > p.top + 170)) endGame();
+            });
+            if (bird.y + bird.h > canvas.height || bird.y < 0) endGame();
+            pipes = pipes.filter(p => p.x + 65 > 0);
+            draw(); animationId = requestAnimationFrame(update);
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(birdImg, bird.x, bird.y, bird.w, bird.h);
+            ctx.fillStyle = "#2ecc71";
+            pipes.forEach(p => { ctx.fillRect(p.x, 0, 65, p.top); ctx.fillRect(p.x, p.top + 170, 65, canvas.height); });
+            ctx.fillStyle = "white"; ctx.font = "bold 50px Quicksand"; ctx.fillText(score, canvas.width/2, 80);
+        }
+
+        function endGame() { gameRunning = false; cancelAnimationFrame(animationId); document.getElementById('game-over').style.display = 'flex'; document.getElementById('final-score').innerText = "SCORE: " + score; }
+
+        canvas.addEventListener('mousedown', () => {
+            if (!gameRunning) { gameRunning = true; document.getElementById('game-over').style.display = 'none'; update(); }
+            bird.v = jump;
+        });
+
+        // GIAO DIỆN
+        function showSection(id) {
+            document.querySelectorAll('section, .detail-page, #game-area, #surprise-selection, #video-page').forEach(s => s.style.display = 'none');
+            const target = document.getElementById(id);
+            if(target) target.style.display = 'block';
+            document.getElementById('back-btn').style.display = (id === 'home' || id === 'main-content') ? 'none' : 'block';
+        }
+
+        function openDetail(id) {
+            showSection(id);
+            window.viewed = (window.viewed || new Set()).add(id);
+            if (window.viewed.size === 3) document.getElementById('surprise-item').style.display = 'block';
+        }
+
+        function showGame() { showSection('game-area'); initGame(); }
+        function resetGame() { document.getElementById('game-over').style.display = 'none'; initGame(); }
+
+        function goToSurprise() {
+            document.getElementById('main-video').pause();
+            document.getElementById('game-over').style.display = 'none';
+            showSection('surprise-selection');
+        }
+
+        // TẠO NÚT VIDEO
+        const grid = document.getElementById('video-grid');
+        for (let i = 1; i <= 12; i++) {
+            const btn = document.createElement('div');
+            btn.className = 'video-node';
+            btn.innerText = i;
+            btn.onclick = () => playVideo(i, false);
+            grid.appendChild(btn);
+        }
+        const specialBtn = document.createElement('div');
+        specialBtn.className = 'video-node special-node';
+        specialBtn.innerText = '✨ ĐẶC BIỆT ✨';
+        specialBtn.onclick = () => playVideo('special', true);
+        grid.appendChild(specialBtn);
+
+        function playVideo(num, isSpecial) {
+            showSection('video-page');
+            document.getElementById('video-title').innerText = isSpecial ? "✨ Món Quà Đặc Biệt ✨" : "Bất ngờ số " + num;
+            const vid = document.getElementById('main-video');
+            vid.src = isSpecial ? "special.mp4" : `video${num}.mp4`;
+            vid.play().catch(e => console.log("Video chưa sẵn sàng"));
+        }
+
+        function goBack() { 
+            if (document.getElementById('video-page').style.display === 'block') goToSurprise();
+            else showSection('main-content');
+            document.getElementById('main-video').pause();
+        }
+
+        initGame();
+    </script>
+</body>
+</html>
