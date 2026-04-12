@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kỷ Niệm Lớp 5/7 - Duy, Vi, Diệp, Khôi, Trâm, Ngọc, Phi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Pattaya&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.35);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --blur: 15px;
+            --primary: #007bff;
+            --font-main: 'Quicksand', sans-serif;
+            --font-title: 'Pattaya', sans-serif;
+        }
+
+        body {
+            margin: 0; font-family: var(--font-main);
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            min-height: 100vh; display: flex; flex-direction: column;
+            align-items: center; overflow-x: hidden; user-select: none;
+        }
+
+        header {
+            position: sticky; top: 15px; display: flex; justify-content: space-between;
+            align-items: center; padding: 12px 30px; z-index: 1000;
+            background: var(--glass-bg); backdrop-filter: blur(var(--blur));
+            border: 1px solid var(--glass-border); border-radius: 50px;
+            width: 85%; max-width: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .logo { font-family: var(--font-title); font-size: 1.6rem; color: var(--primary); cursor: pointer; }
+        nav a { margin-left: 15px; text-decoration: none; color: #444; font-weight: 700; cursor: pointer; }
+
+        main { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; width: 100%; }
+
+        section, .detail-page, #game-area, #surprise-mode, #manual-selection, #video-page {
+            display: none; width: 100%; text-align: center; animation: zoomIn 0.5s ease;
+        }
+        section.active, .detail-page.active, #game-area.active, #surprise-mode.active, #manual-selection.active, #video-page.active { display: block; }
+
+        .detail-page {
+            max-width: 600px; margin: 0 auto; background: var(--glass-bg);
+            padding: 40px; border-radius: 30px; backdrop-filter: blur(var(--blur));
+            border: 1px solid var(--glass-border); box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        .detail-page h3 { font-family: var(--font-title); font-size: 3rem; color: var(--primary); margin-bottom: 20px; }
+        .detail-page p { font-size: 1.5rem; line-height: 1.6; color: #333; font-weight: 600; }
+
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+        .content-list { list-style: none; padding: 0; max-width: 400px; margin: 0 auto; }
+        .content-list li {
+            background: var(--glass-bg); backdrop-filter: blur(var(--blur));
+            border: 1px solid var(--glass-border); margin: 15px 0; padding: 22px;
+            border-radius: 50px; cursor: pointer; font-weight: 700; font-size: 1.3rem; transition: 0.3s;
+        }
+        .content-list li:hover { transform: translateY(-5px); background: rgba(255,255,255,0.6); }
+
+        #rolling-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 9999;
+            display: none; flex-direction: column; justify-content: center; align-items: center;
+            color: white; backdrop-filter: blur(10px);
+        }
+        #rolling-number { font-size: 6rem; font-weight: 800; color: #f1c40f; margin-top: 20px; text-align: center; line-height: 1.2; }
+
+        #game-area { max-width: 400px; position: relative; margin: 0 auto; }
+        #game-canvas { background: #70c5ce; border: 6px solid white; border-radius: 25px; box-shadow: 0 20px 50px rgba(0,0,0,0.15); cursor: pointer; }
+
+        #game-over {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); border-radius: 20px;
+            display: none; flex-direction: column; justify-content: center; align-items: center;
+            color: white; z-index: 100;
+        }
+
+        .btn {
+            font-family: var(--font-main); padding: 15px 30px; border: none;
+            border-radius: 50px; font-weight: 700; cursor: pointer; margin: 10px; transition: 0.3s;
+            text-transform: uppercase; letter-spacing: 1px; font-size: 1.1rem;
+        }
+        .btn-blue { background: #007bff; color: white; }
+        .btn-red { background: #ff4757; color: white; }
+        .btn-yellow { background: #f1c40f; color: #333; }
+        .btn-glass { background: var(--glass-bg); backdrop-filter: blur(5px); border: 1px solid white; color: #333; }
+
+        .btn-github {
+            background: #24292e; color: white; display: inline-flex;
+            align-items: center; gap: 10px; text-decoration: none;
+            font-size: 0.9rem; margin-top: 20px;
+        }
+
+        .video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; max-width: 500px; margin: 30px auto; padding: 0 10px; }
+        .video-node { background: white; padding: 20px; border-radius: 20px; font-weight: 800; font-size: 1.2rem; cursor: pointer; transition: 0.3s; border: 2px solid transparent; box-shadow: 0 5px 15px rgba(0,0,0,0.05); color: #333; display: flex; align-items: center; justify-content: center; }
+        .video-node:hover { background: #ffeaa7; border-color: #fdcb6e; transform: translateY(-3px); }
+
+        /* FIX LỖI HIỂN THỊ NÚT ĐẶC BIỆT */
+        .special-node {
+            background: white !important; 
+            grid-column: span 3;
+            min-height: 70px;
+            border: 3px solid #ff4757 !important;
+            animation: pulse 1.5s infinite;
+            overflow: hidden;
+        }
+
+        .special-text {
+            background-image: linear-gradient(to right, #81ecec, #ff4757, #f1c40f, #81ecec);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 1.6rem;
+            font-weight: 900;
+            animation: shine 2s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes shine { to { background-position: 200% center; } }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.4); }
+            70% { transform: scale(1.03); box-shadow: 0 0 0 10px rgba(255, 71, 87, 0); }
+            100% { transform: scale(1); }
+        }
+
+        video { width: 100%; max-width: 700px; border-radius: 30px; border: 8px solid white; box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
+        .back-btn { position: fixed; bottom: 30px; left: 30px; background: #222; color: white; display: none; z-index: 2000; }
+        #security-alert { position: fixed; top: 20px; background: rgba(255, 71, 87, 0.9); color: white; padding: 15px 25px; border-radius: 30px; font-weight: bold; z-index: 10000; display: none; }
+        footer { margin-top: auto; padding: 40px 20px; text-align: center; }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <div id="security-alert">Bí mật của lớp 5/7, đừng soi nhaaa! :P</div>
+
+    <div id="rolling-overlay">
+        <h2 style="font-family: var(--font-title); font-size: 2.2rem;">KẾT QUẢ QUAY SỐ...</h2>
+        <div id="rolling-number">?</div>
+    </div>
+
+    <header>
+        <div class="logo" onclick="window.location.reload()">LOP 5/7</div>
+        <nav>
+            <a onclick="showSection('home')">Trang chủ</a>
+            <a onclick="showSection('main-content')">Content</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="active">
+            <h1 style="font-family: var(--font-title); font-size: 3.5rem;">Lớp 5/7 Thân Yêu</h1>
+            <p>Sắp chia tay rồi, lưu giữ kỷ niệm nhé!</p>
+        </section>
+
+        <section id="main-content">
+            <h2 style="font-family: var(--font-title); font-size: 2.5rem;">KHÁM PHÁ</h2>
+            <ul class="content-list">
+                <li onclick="openDetail('detail-1')">1. Lời chúc</li>
+                <li onclick="openDetail('detail-2')">2. Ước mơ</li>
+                <li onclick="openDetail('detail-3')">3. Lời tạm biệt</li>
+                <li id="surprise-item" style="display: none; background: #ffeaa7;" onclick="showGame()">✨ 4. CHƠI TRÒ CHƠI ✨</li>
+            </ul>
+        </section>
+
+        <div id="detail-1" class="detail-page"><h3>Lời chúc</h3><p>Mùa hè rực rỡ và những kỷ niệm đẹp sẽ mãi bên cậu!</p></div>
+        <div id="detail-2" class="detail-page"><h3>Ước mơ</h3><p>Tất cả chúng mình sẽ đỗ vào trường cấp 2 mơ ước!</p></div>
+        <div id="detail-3" class="detail-page"><h3>Lời tạm biệt</h3><p>Cảm ơn vì đã là một phần thanh xuân của nhau!</p></div>
+
+        <div id="game-area">
+            <canvas id="game-canvas" width="400" height="600"></canvas>
+            <div id="game-over">
+                <h2 style="font-size: 2.5rem;">THUA RÙI :(</h2>
+                <p id="final-score" style="font-size: 1.5rem; margin: 10px 0;">SCORE: 0</p>
+                <div>
+                    <button class="btn btn-blue" onclick="resetGame()">Chơi lại</button>
+                    <button class="btn btn-red" onclick="showSurpriseMode()">Đi típ</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="surprise-mode">
+            <h2 style="font-family: var(--font-title); font-size: 2.5rem;">Bất Ngờ Đang Chờ...</h2>
+            <p style="font-weight: bold;">Cậu muốn khám phá theo cách nào?</p>
+            <br>
+            <button class="btn btn-yellow" onclick="startRandomRoll()">🎲 QUAY NGẪU NHIÊN</button>
+            <button class="btn btn-blue" onclick="showManualSelection()">🖐️ CHỌN THỦ CÔNG</button>
+        </div>
+
+        <div id="manual-selection">
+            <h2 style="font-family: var(--font-title); font-size: 2.5rem;">Chọn Số Của Cậu ✨</h2>
+            <div class="video-grid" id="video-grid"></div>
+            <button class="btn btn-glass" onclick="showSurpriseMode()">← QUAY LẠI CHỌN CHẾ ĐỘ</button>
+        </div>
+
+        <div id="video-page">
+            <h3 id="video-title" style="font-family: var(--font-title); font-size: 2rem;">Bất ngờ</h3>
+            <video id="main-video" controls><source src="" type="video/mp4"></video>
+            <br><br>
+            <button class="btn btn-glass" onclick="backToSelection()">QUAY LẠI</button>
+        </div>
+
+        <button id="back-btn" class="btn back-btn" onclick="goBack()">← QUAY LẠI</button>
+    </main>
+
+    <footer>
+        <a href="https://github.com/duyanhmcgiadinh76/monquabimatcholop57" target="_blank" class="btn btn-github">
+            <i class="fab fa-github"></i> Web được mã nguồn mở trên Github
+        </a>
+    </footer>
+
+    <script>
+        function showSection(id) {
+            document.querySelectorAll('section, .detail-page, #game-area, #surprise-mode, #manual-selection, #video-page').forEach(s => s.style.display = 'none');
+            const target = document.getElementById(id);
+            if(target) target.style.display = 'block';
+            document.getElementById('back-btn').style.display = (id === 'home' || id === 'main-content') ? 'none' : 'block';
+        }
+
+        function showSurpriseMode() { showSection('surprise-mode'); }
+        function showManualSelection() { showSection('manual-selection'); }
+
+        // QUAY NGẪU NHIÊN BAO GỒM CẢ ĐẶC BIỆT
+        function startRandomRoll() {
+            const overlay = document.getElementById('rolling-overlay');
+            const numDisplay = document.getElementById('rolling-number');
+            overlay.style.display = 'flex';
+            let count = 0;
+            const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, "ĐẶC BIỆT"];
+
+            const interval = setInterval(() => {
+                const tempIdx = Math.floor(Math.random() * items.length);
+                numDisplay.innerText = items[tempIdx];
+                numDisplay.style.fontSize = (items[tempIdx] === "ĐẶC BIỆT") ? "4rem" : "6rem";
+                count++;
+                if (count > 25) {
+                    clearInterval(interval);
+                    // Chọn kết quả cuối cùng
+                    const finalResult = items[Math.floor(Math.random() * items.length)];
+                    numDisplay.innerText = finalResult;
+                    numDisplay.style.color = (finalResult === "ĐẶC BIỆT") ? "#ff4757" : "#2ecc71";
+                    numDisplay.style.fontSize = (finalResult === "ĐẶC BIỆT") ? "4.5rem" : "7rem";
+
+                    setTimeout(() => {
+                        overlay.style.display = 'none';
+                        numDisplay.style.color = "#f1c40f";
+                        if(finalResult === "ĐẶC BIỆT") playVideo('special', true);
+                        else playVideo(finalResult, false);
+                    }, 1200);
+                }
+            }, 80);
+        }
+
+        function playVideo(num, isSpecial) {
+            showSection('video-page');
+            document.getElementById('video-title').innerText = isSpecial ? "✨ Món Quà Đặc Biệt ✨" : "Bất ngờ số " + num;
+            const vid = document.getElementById('main-video');
+            vid.src = isSpecial ? "special.mp4" : `video${num}.mp4`;
+            vid.onended = () => { backToSelection(); };
+            vid.play().catch(e => console.log("Lỗi video"));
+        }
+
+        function backToSelection() {
+            document.getElementById('main-video').pause();
+            showSurpriseMode();
+        }
+
+        // TẠO LẠI NÚT THỦ CÔNG VỚI CẤU TRÚC CHỮ KHÔNG BỊ MẤT
+        const grid = document.getElementById('video-grid');
+        for (let i = 1; i <= 12; i++) {
+            const btn = document.createElement('div');
+            btn.className = 'video-node';
+            btn.innerText = i;
+            btn.onclick = () => playVideo(i, false);
+            grid.appendChild(btn);
+        }
+        
+        const specialBtn = document.createElement('div');
+        specialBtn.className = 'video-node special-node';
+        specialBtn.innerHTML = '<span class="special-text">✨ ĐẶC BIỆT ✨</span>';
+        specialBtn.onclick = () => playVideo('special', true);
+        grid.appendChild(specialBtn);
+
+        // PHẦN GAME
+        const canvas = document.getElementById('game-canvas');
+        const ctx = canvas.getContext('2d');
+        const birdImg = new Image(); birdImg.src = 'Flappy-Bird-PNG-Free-Image.png';
+        let bird, pipes, score, gameRunning = false, animationId;
+        const gravity = 0.25; const jump = -5.5;
+
+        function initGame() {
+            bird = { x: 50, y: 250, w: 45, h: 35, v: 0 };
+            pipes = []; score = 0; gameRunning = false;
+            drawStartScreen();
+        }
+
+        function drawStartScreen() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "white"; ctx.font = "bold 22px Quicksand"; ctx.textAlign = "center";
+            ctx.fillText("Chạm nhẹ để bay nhó!", canvas.width/2, canvas.height/2);
+            if(birdImg.complete) ctx.drawImage(birdImg, bird.x, bird.y, bird.w, bird.h);
+        }
+
+        function update() {
+            if (!gameRunning) return;
+            bird.v += gravity; bird.y += bird.v;
+            if (pipes.length === 0 || pipes[pipes.length - 1].x < canvas.width - 220) {
+                const h = Math.random() * (canvas.height - 300) + 50;
+                pipes.push({ x: canvas.width, top: h, scored: false });
+            }
+            pipes.forEach(p => {
+                p.x -= 2.5;
+                if (!p.scored && p.x + 65 < bird.x) { score++; p.scored = true; }
+                if (bird.x + bird.w > p.x && bird.x < p.x + 65 && (bird.y < p.top || bird.y + bird.h > p.top + 170)) endGame();
+            });
+            if (bird.y + bird.h > canvas.height || bird.y < 0) endGame();
+            pipes = pipes.filter(p => p.x + 65 > 0);
+            draw(); animationId = requestAnimationFrame(update);
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(birdImg, bird.x, bird.y, bird.w, bird.h);
+            ctx.fillStyle = "#2ecc71";
+            pipes.forEach(p => { ctx.fillRect(p.x, 0, 65, p.top); ctx.fillRect(p.x, p.top + 170, 65, canvas.height); });
+            ctx.fillStyle = "white"; ctx.font = "bold 50px Quicksand"; ctx.fillText(score, canvas.width/2, 80);
+        }
+
+        function endGame() { gameRunning = false; cancelAnimationFrame(animationId); document.getElementById('game-over').style.display = 'flex'; document.getElementById('final-score').innerText = "SCORE: " + score; }
+
+        canvas.addEventListener('mousedown', () => {
+            if (!gameRunning) { gameRunning = true; document.getElementById('game-over').style.display = 'none'; update(); }
+            bird.v = jump;
+        });
+
+        function openDetail(id) {
+            showSection(id);
+            window.viewed = (window.viewed || new Set()).add(id);
+            if (window.viewed.size === 3) document.getElementById('surprise-item').style.display = 'block';
+        }
+
+        function showGame() { showSection('game-area'); initGame(); }
+        function resetGame() { document.getElementById('game-over').style.display = 'none'; initGame(); }
+
+        function goBack() { 
+            const vid = document.getElementById('main-video');
+            vid.pause();
+            if (document.getElementById('video-page').style.display === 'block' || document.getElementById('manual-selection').style.display === 'block') showSurpriseMode();
+            else showSection('main-content');
+        }
+
+        initGame();
+    </script>
+</body>
+</html>
